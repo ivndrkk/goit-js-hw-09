@@ -4,7 +4,7 @@ const form = document.querySelector('.feedback-form');
 const LOCAL_STORAGE_KEY = 'feedback-form-state';
 
 form.addEventListener('input', event => {
-    formData[event.target.name] = event.target.value;
+    formData[event.target.name] = event.target.value.trim();
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(formData));
 });
 
@@ -25,10 +25,9 @@ form.addEventListener('submit', event => {
         alert('Fill please all fields');
     } else {
         console.log(formData);
-        localStorage.clear();
-        formData.email = "";
-        formData.message = "";
-        form.elements.email.value = null;
-        form.elements.message.value = null;
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        form.reset();
+        formData.email = '';
+        formData.message = '';
     }
 })
